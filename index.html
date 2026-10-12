@@ -340,7 +340,7 @@ function buildReel() {
     const d = document.createElement("div");
     d.className = "polaroid";
     const img = new Image();
-    img.src = src; img.alt = ""; img.loading = "lazy"; img.decoding = "async";
+    img.src = src; img.alt = ""; img.decoding = "async";
     img.onerror = () => { const ph = document.createElement("div"); ph.className = "ph"; ph.textContent = "🐱"; img.replaceWith(ph); };
     d.appendChild(img);
     return d;
