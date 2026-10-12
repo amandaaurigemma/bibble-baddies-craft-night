@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>Dumpling's Craft Sleepover</title>
+<meta name="theme-color" content="#2A1F45">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐱</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --ink: #2A1F45;
+    --paper: #F3EEFB;
+    --card: #FFFFFF;
+    --pink: #FF8FB1;
+    --mint: #8EDCC3;
+    --butter: #FFD76A;
+    --muted: #6B6085;
+    --line: #DCD2F0;
+    --display: "Fredoka", "Trebuchet MS", system-ui, sans-serif;
+    --body: "Nunito", system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--body);
+    font-size: 17px;
+    line-height: 1.5;
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    background: var(--ink);
+    color: #fff;
+    padding: calc(env(safe-area-inset-top, 0px) + 22px) 0 34px;
+    overflow: hidden;
+    position: relative;
+  }
+  .hero h1 {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: clamp(2rem, 9vw, 3.4rem);
+    line-height: 1.05;
+    margin: 0 auto;
+    padding: 26px 22px 0;
+    max-width: 640px;
+    text-align: center;
+  }
+  .hero p {
+    max-width: 520px;
+    margin: 12px auto 0;
+    padding: 0 22px;
+    text-align: center;
+    color: #D9CFF2;
+    font-size: 1.05rem;
+  }
+
+  /* Scrolling polaroid banner */
+  .reel { width: 100%; overflow: hidden; padding: 14px 0 6px; }
+  .reel-track {
+    display: flex;
+    gap: 16px;
+    width: max-content;
+    animation: scroll var(--reel-time, 40s) linear infinite;
+  }
+  .reel:active .reel-track { animation-play-state: paused; }
+  @keyframes scroll { to { transform: translateX(-50%); } }
+
+  .polaroid {
+    flex: none;
+    background: #fff;
+    padding: 8px 8px 26px;
+    border-radius: 3px;
+    box-shadow: 0 6px 18px rgba(0,0,0,.35);
+    position: relative;
+    transform: rotate(var(--tilt, -2deg));
+  }
+  .polaroid:nth-child(3n+1) { --tilt: -3deg; }
+  .polaroid:nth-child(3n+2) { --tilt: 2deg; margin-top: 8px; }
+  .polaroid:nth-child(3n)   { --tilt: -1deg; }
+  .polaroid::before {            /* washi tape */
+    content: "";
+    position: absolute;
+    top: -9px; left: 50%;
+    width: 54px; height: 16px;
+    transform: translateX(-50%) rotate(-4deg);
+    background: var(--butter);
+    opacity: .85;
+  }
+  .polaroid:nth-child(3n+2)::before { background: var(--pink); }
+  .polaroid:nth-child(3n)::before   { background: var(--mint); }
+  .polaroid img, .polaroid .ph {
+    display: block;
+    width: 150px; height: 150px;
+    object-fit: cover;
+    background: #E9E1F7;
+  }
+  .polaroid .ph { display: grid; place-items: center; font-size: 54px; }
+
+  @media (min-width: 700px) {
+    .polaroid img, .polaroid .ph { width: 200px; height: 200px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .reel { overflow-x: auto; }
+    .reel-track { animation: none; }
+  }
+
+  /* ---------- Layout ---------- */
+  main { max-width: 640px; margin: 0 auto; padding: 22px 16px 60px; }
+  section { margin-bottom: 30px; }
+  h2 {
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: 1.4rem;
+    margin: 0 0 10px;
+  }
+  h3 {
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: 1.1rem;
+    margin: 22px 0 8px;
+    color: var(--ink);
+  }
+  .hint { color: var(--muted); font-size: .95rem; margin: 0 0 12px; }
+
+  input[type=text], textarea {
+    width: 100%;
+    font: inherit;
+    font-size: 16px; /* prevents iOS zoom */
+    color: var(--ink);
+    background: #fff;
+    border: 2px solid var(--line);
+    border-radius: 14px;
+    padding: 14px 16px;
+  }
+  textarea { min-height: 110px; resize: vertical; }
+  input[type=text]:focus, textarea:focus { outline: 3px solid var(--pink); outline-offset: 1px; border-color: var(--pink); }
+
+  /* Date options */
+  .option {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    min-height: 58px;
+    padding: 12px 16px;
+    margin-bottom: 10px;
+    background: #fff;
+    border: 2px solid var(--line);
+    border-radius: 16px;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition: border-color .15s, background .15s;
+  }
+  .option input { position: absolute; opacity: 0; pointer-events: none; }
+  .box {
+    flex: none;
+    width: 28px; height: 28px;
+    border: 2px solid var(--muted);
+    border-radius: 8px;
+    display: grid; place-items: center;
+    background: #fff;
+    transition: background .15s, border-color .15s;
+  }
+  .box svg { width: 18px; height: 18px; opacity: 0; transition: opacity .12s; }
+  .option:has(input:checked) { border-color: var(--ink); background: #FFF3F7; }
+  .option:has(input:checked) .box { background: var(--pink); border-color: var(--ink); }
+  .option:has(input:checked) .box svg { opacity: 1; }
+  .option:has(input:focus-visible) { outline: 3px solid var(--pink); outline-offset: 2px; }
+  .option .label { font-weight: 600; line-height: 1.3; }
+
+  .btn {
+    width: 100%;
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: 1.2rem;
+    color: var(--ink);
+    background: var(--butter);
+    border: 3px solid var(--ink);
+    border-radius: 18px;
+    padding: 15px 18px;
+    cursor: pointer;
+    box-shadow: 0 5px 0 var(--ink);
+    transition: transform .08s, box-shadow .08s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .btn:active { transform: translateY(4px); box-shadow: 0 1px 0 var(--ink); }
+  .btn:disabled { opacity: .6; }
+  .status { min-height: 1.5em; margin: 14px 0 0; text-align: center; font-weight: 700; }
+  .status.ok { color: #1E7A5C; }
+  .status.err { color: #B3261E; }
+
+  /* Results */
+  .results {
+    background: var(--card);
+    border: 2px solid var(--line);
+    border-radius: 20px;
+    padding: 18px 16px 8px;
+  }
+  .count-line { font-weight: 700; margin: 0 0 4px; }
+  .row { margin-bottom: 16px; }
+  .row-top { display: flex; justify-content: space-between; gap: 10px; font-weight: 600; line-height: 1.3; }
+  .row-top .n { font-family: var(--display); font-size: 1.15rem; flex: none; }
+  .bar { height: 12px; background: #EFE8FA; border-radius: 99px; margin: 6px 0 4px; overflow: hidden; }
+  .bar > i { display: block; height: 100%; width: 0; background: var(--pink); border-radius: 99px; transition: width .5s ease; }
+  .who { color: var(--muted); font-size: .9rem; min-height: 1.2em; }
+
+  /* Notes */
+  .note {
+    background: #fff;
+    border: 2px solid var(--line);
+    border-left: 8px solid var(--mint);
+    border-radius: 14px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    overflow-wrap: anywhere;
+  }
+  .note b { font-family: var(--display); font-weight: 600; }
+  .note p { margin: 4px 0 0; white-space: pre-wrap; }
+  .empty { color: var(--muted); text-align: center; padding: 8px 0 14px; }
+
+  .demo-banner {
+    background: var(--butter); color: var(--ink);
+    text-align: center; font-weight: 700; font-size: .9rem;
+    padding: 8px 12px;
+    padding-top: calc(env(safe-area-inset-top, 0px) + 8px);
+  }
+  .demo-banner[hidden] { display: none; }
+</style>
+</head>
+<body>
+
+<div class="demo-banner" id="demoBanner" hidden>
+  Preview mode: responses are saved only on this device until you add your Firebase settings.
+</div>
+
+<header class="hero">
+  <div class="reel" aria-hidden="true">
+    <div class="reel-track" id="reelTrack"></div>
+  </div>
+  <h1>Dumpling invites you for crafts and a sleepover</h1>
+  <p>…at her humble abode! 🐾</p>
+</header>
+
+<main>
+  <section>
+    <h2>Please enter your name</h2>
+    <input type="text" id="name" placeholder="Your name" maxlength="40" autocomplete="given-name" enterkeyhint="done">
+  </section>
+
+  <section>
+    <h2>Which dates and times work for you?</h2>
+    <p class="hint">Pick as many as you like.</p>
+    <div id="options"></div>
+  </section>
+
+  <section>
+    <h2>Any notes?</h2>
+    <p class="hint">Dietary restrictions? Preferred timing? Need to stay an extra night? Everyone can see your note, so text me if you'd rather send something privately.</p>
+    <textarea id="note" maxlength="500" placeholder="Add a note (optional)"></textarea>
+  </section>
+
+  <section>
+    <button class="btn" id="submit">Send my answer</button>
+    <p class="status" id="status" role="status" aria-live="polite"></p>
+  </section>
+
+  <section>
+    <h2>Live results</h2>
+    <div class="results" id="results"></div>
+  </section>
+
+  <section>
+    <h2>Notes from everyone</h2>
+    <div id="notes"></div>
+  </section>
+</main>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+<script>
+/* =====================================================================
+   1) PASTE YOUR FIREBASE SETTINGS HERE (see setup steps)
+   ===================================================================== */
+const firebaseConfig = {
+    apiKey: "AIzaSyAOeExhmlhSmnVdaqzXLbT7ca_G6S46fPg",
+    authDomain: "bibble-baddies-crafts.firebaseapp.com",
+    databaseURL: "https://bibble-baddies-crafts-default-rtdb.firebaseio.com",
+    projectId: "bibble-baddies-crafts",
+    storageBucket: "bibble-baddies-crafts.firebasestorage.app",
+    messagingSenderId: "934851227635",
+    appId: "1:934851227635:web:ac3e2349e876196e946c86"
+};
+
+/* =====================================================================
+   2) DUMPLING'S PHOTOS: put image files in a folder named "cat" next to
+      this file, then list their filenames here. Add as many as you like.
+   ===================================================================== */
+const CAT_PHOTOS = [
+  "cat/1.jpg", "cat/2.jpg", "cat/3.jpg", "cat/4.jpg",
+  "cat/5.jpg", "cat/6.jpg", "cat/7.jpg", "cat/8.jpg"
+];
+
+/* =====================================================================
+   3) THE POLL OPTIONS
+   ===================================================================== */
+const WEEKENDS = [
+  { id: "nov13", title: "Weekend of Nov 13" },
+  { id: "nov20", title: "Weekend of Nov 20" }
+];
+const SLOTS = [
+  { id: "fri_crafts", label: "Friday night crafts + sleepover" },
+  { id: "fri_sleep",  label: "Friday night sleepover + Saturday morning crafts" },
+  { id: "sat_crafts", label: "Saturday night crafts + sleepover" },
+  { id: "sat_sleep",  label: "Saturday night sleepover + Sunday morning crafts" }
+];
+const OPTIONS = [];
+WEEKENDS.forEach(w => SLOTS.forEach(s =>
+  OPTIONS.push({ id: w.id + "_" + s.id, group: w.title, label: s.label })
+));
+
+/* ---------------------------------------------------------------------
+   Everything below is the app. You shouldn't need to edit it.
+   --------------------------------------------------------------------- */
+const $ = id => document.getElementById(id);
+const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const CHECK = '<svg viewBox="0 0 20 20" fill="none" stroke="#2A1F45" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10.5l4 4 8-9"/></svg>';
+
+/* ---------- Photo banner ---------- */
+function buildReel() {
+  const track = $("reelTrack");
+  const makeSet = () => CAT_PHOTOS.map(src => {
+    const d = document.createElement("div");
+    d.className = "polaroid";
+    const img = new Image();
+    img.src = src; img.alt = ""; img.loading = "lazy"; img.decoding = "async";
+    img.onerror = () => { const ph = document.createElement("div"); ph.className = "ph"; ph.textContent = "🐱"; img.replaceWith(ph); };
+    d.appendChild(img);
+    return d;
+  });
+  // Two identical sets so the loop is seamless
+  makeSet().forEach(n => track.appendChild(n));
+  makeSet().forEach(n => track.appendChild(n));
+  track.style.setProperty("--reel-time", Math.max(24, CAT_PHOTOS.length * 6) + "s");
+}
+
+/* ---------- Poll form ---------- */
+function buildOptions() {
+  const wrap = $("options");
+  let last = "";
+  OPTIONS.forEach(o => {
+    if (o.group !== last) {
+      const h = document.createElement("h3"); h.textContent = o.group; wrap.appendChild(h); last = o.group;
+    }
+    const l = document.createElement("label");
+    l.className = "option";
+    l.innerHTML = '<input type="checkbox" value="' + o.id + '"><span class="box">' + CHECK + '</span><span class="label">' + esc(o.label) + '</span>';
+    wrap.appendChild(l);
+  });
+}
+const getChecked = () => [...document.querySelectorAll("#options input:checked")].map(i => i.value);
+const setChecked = ids => document.querySelectorAll("#options input").forEach(i => i.checked = ids.includes(i.value));
+
+/* ---------- Storage: Firebase, or local preview mode ---------- */
+const configured = !/YOUR_/.test(firebaseConfig.databaseURL);
+let store;
+
+if (configured) {
+  firebase.initializeApp(firebaseConfig);
+  const ref = firebase.database().ref("responses");
+  store = {
+    subscribe(cb) { ref.on("value", snap => cb(snap.val() || {}), err => showStatus("Can't load results right now. Try refreshing.", "err")); },
+    save(key, data) { return ref.child(key).set(data); }
+  };
+} else {
+  $("demoBanner").hidden = false;
+  const KEY = "dumpling_demo_responses";
+  const subs = [];
+  const read = () => { try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) { return {}; } };
+  store = {
+    subscribe(cb) { subs.push(cb); cb(read()); },
+    save(key, data) {
+      const all = read(); all[key] = data;
+      try { localStorage.setItem(KEY, JSON.stringify(all)); } catch (e) {}
+      subs.forEach(cb => cb(all));
+      return Promise.resolve();
+    }
+  };
+}
+
+/* ---------- Rendering ---------- */
+let latest = {};
+function render(data) {
+  latest = data;
+  const people = Object.values(data).filter(r => r && r.name);
+  const total = people.length;
+
+  // Results
+  let html = '<p class="count-line">' + total + (total === 1 ? " person has" : " people have") + " responded</p>";
+  if (!total) html += '<p class="empty">No answers yet. Be the first!</p>';
+  let lastGroup = "";
+  OPTIONS.forEach(o => {
+    if (o.group !== lastGroup) { html += "<h3>" + esc(o.group) + "</h3>"; lastGroup = o.group; }
+    const names = people.filter(p => (p.dates || []).includes(o.id)).map(p => p.name).sort((a, b) => a.localeCompare(b));
+    const pct = total ? Math.round(names.length / total * 100) : 0;
+    html += '<div class="row"><div class="row-top"><span>' + esc(o.label) + '</span><span class="n">' + names.length + '</span></div>' +
+            '<div class="bar"><i style="width:' + pct + '%"></i></div>' +
+            '<div class="who">' + (names.length ? esc(names.join(", ")) : "") + '</div></div>';
+  });
+  $("results").innerHTML = html;
+
+  // Notes
+  const withNotes = people.filter(p => p.note && p.note.trim()).sort((a, b) => (b.ts || 0) - (a.ts || 0));
+  $("notes").innerHTML = withNotes.length
+    ? withNotes.map(p => '<div class="note"><b>' + esc(p.name) + '</b><p>' + esc(p.note) + '</p></div>').join("")
+    : '<p class="empty">No notes yet.</p>';
+}
+
+/* ---------- Submit ---------- */
+function showStatus(msg, kind) { const s = $("status"); s.textContent = msg; s.className = "status " + (kind || ""); }
+const keyFor = name => name.trim().toLowerCase().replace(/[^a-z0-9]+/g, "_").replace(/^_+|_+$/g, "") || "guest";
+
+$("submit").addEventListener("click", async () => {
+  const name = $("name").value.trim();
+  const dates = getChecked();
+  const note = $("note").value.trim();
+  if (!name) { showStatus("Please enter your name first.", "err"); $("name").focus(); return; }
+  if (!dates.length && !note) { showStatus("Pick at least one date, or leave a note.", "err"); return; }
+
+  const btn = $("submit"); btn.disabled = true; showStatus("Sending…");
+  try {
+    await store.save(keyFor(name), { name, dates, note, ts: Date.now() });
+    try { localStorage.setItem("dumpling_name", name); } catch (e) {}
+    showStatus("Got it, " + name + "! You can change your answer any time by sending again.", "ok");
+  } catch (e) {
+    showStatus("That didn't go through. Check your connection and try again.", "err");
+  }
+  btn.disabled = false;
+});
+
+// If someone types a name that already answered, load their previous answer so they can edit it
+$("name").addEventListener("change", () => {
+  const prev = latest[keyFor($("name").value)];
+  if (prev && $("name").value.trim()) { setChecked(prev.dates || []); $("note").value = prev.note || ""; }
+});
+
+/* ---------- Start ---------- */
+buildReel();
+buildOptions();
+try { const n = localStorage.getItem("dumpling_name"); if (n) $("name").value = n; } catch (e) {}
+let first = true;
+store.subscribe(data => {
+  render(data);
+  if (first) { first = false; if ($("name").value) $("name").dispatchEvent(new Event("change")); }
+});
+</script>
+</body>
+</html>
