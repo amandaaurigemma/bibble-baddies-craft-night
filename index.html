@@ -303,13 +303,23 @@ const firebaseConfig = {
    2) DUMPLING'S PHOTOS: put image files in a folder named "cat" next to
       this file, then list their filenames here. Add as many as you like.
    ===================================================================== */
-const CAT_PHOTOS = [
+/*
+  const CAT_PHOTOS = [
   "cat/dumpling_1.jpg", "cat/dumpling_2.jpg",
   "cat/dumpling_3.jpg", "cat/dumpling_4.jpg",
   "cat/dumpling_5.jpg", "cat/dumpling_6.jpg",
   "cat/dumpling_7.jpg", "cat/dumpling_8.jpg",
   "cat/dumpling_9.jpg", "cat/dumpling_10.jpg"
 ];
+*/
+
+const PHOTO_BASE =
+  "/bibble-baddies-craft-night/cat/";
+
+const CAT_PHOTOS = Array.from(
+  { length: 10 },
+  (_, i) => `${PHOTO_BASE}dumpling_${i + 1}.jpg`
+);
 
 /* =====================================================================
    3) THE POLL OPTIONS
