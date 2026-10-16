@@ -311,7 +311,6 @@ const firebaseConfig = {
   "cat/dumpling_7.jpg", "cat/dumpling_8.jpg",
   "cat/dumpling_9.jpg", "cat/dumpling_10.jpg"
 ];
-*/
 
 const PHOTO_BASE =
   "./cat/";
@@ -320,6 +319,22 @@ const CAT_PHOTOS = Array.from(
   { length: 10 },
   (_, i) => `${PHOTO_BASE}dumpling_${i + 1}.jpg`
 );
+*/
+  
+let CAT_PHOTOS = [];
+
+async function loadPhotos() {
+  const m = location.hostname.match(/^(.+)\.github\.io$/);
+  const user = m ? m[1] : "YOUR_GITHUB_USERNAME";
+  const repo = location.pathname.split("/")[1] || (user + ".github.io");
+  try {
+    const r = await fetch("https://api.github.com/repos/" + user + "/" + repo + "/contents/cat");
+    const files = await r.json();
+    return files
+      .filter(f => /\.(jpe?g|png|webp|gif)$/i.test(f.name))
+      .map(f => f.download_url);
+  } catch (e) { return []; }
+}
 
 /* =====================================================================
    3) THE POLL OPTIONS
@@ -347,7 +362,8 @@ const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>'
 const CHECK = '<svg viewBox="0 0 20 20" fill="none" stroke="#2A1F45" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10.5l4 4 8-9"/></svg>';
 
 /* ---------- Photo banner ---------- */
-function buildReel() {
+async function buildReel() {
+  CAT_PHOTOS = await loadPhotos();
   const track = $("reelTrack");
   const makeSet = () => CAT_PHOTOS.map(src => {
     const d = document.createElement("div");
