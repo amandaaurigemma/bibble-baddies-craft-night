@@ -284,7 +284,7 @@
 
   <section>
     <h2>Any notes?</h2>
-    <p class="hint">Dietary restrictions? Preferred timing? Need to stay an extra night? Everyone can see your note, so text me if you'd rather send something privately.</p>
+    <p class="hint">Dietary restrictions? Preferred timing? Need to stay an extra night? Snack/food requests? Everyone can see your note, so text me if you'd rather send something privately.</p>
     <textarea id="note" maxlength="500" placeholder="Add a note (optional)"></textarea>
   </section>
 
@@ -361,8 +361,12 @@ async function loadPhotos() {
    3) THE POLL OPTIONS
    ===================================================================== */
 const WEEKENDS = [
+  { id: "nov6", title: "Weekend of Nov 6" },
   { id: "nov13", title: "Weekend of Nov 13" },
-  { id: "nov20", title: "Weekend of Nov 20" }
+  { id: "nov20", title: "Weekend of Nov 20" },
+  { id: "dec4", title: "Weekend of Dec 4" },
+  { id: "dec11", title: "Weekend of Dec 11" },
+  { id: "dec18", title: "Weekend of Dec 18" }
 ];
 const SLOTS = [
   { id: "fri_crafts", label: "Friday night crafts + sleepover" },
