@@ -108,11 +108,13 @@
   @media (min-width: 700px) {
     .polaroid img, .polaroid .ph { width: 200px; height: 200px; }
   }
+
+  /*
   @media (prefers-reduced-motion: reduce) {
     .reel { overflow-x: auto; }
     .reel-track { animation: none; }
   }
-
+  */
   /* ---------- Layout ---------- */
   main { max-width: 640px; margin: 0 auto; padding: 22px 16px 60px; }
   section { margin-bottom: 30px; }
@@ -186,7 +188,7 @@
     -webkit-tap-highlight-color: transparent;
   }
   details.weekend > summary::-webkit-details-marker { display: none; }
-  details.weekend .chev { display: inline-block; transition: transform .15s; }
+  details.weekend .chev { display: inline-block; transition: transform .15s; font-size: 1.6rem; line-height: 1; }
   details.weekend[open] .chev { transform: rotate(90deg); }
   .badge {
     font-family: var(--body); font-size: .85rem; font-weight: 700;
