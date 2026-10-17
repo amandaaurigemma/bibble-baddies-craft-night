@@ -272,10 +272,10 @@
 
 <main>
   <section>
-    <h2>Please enter your name</h2>
-    <input type="text" id="name" placeholder="Your name" maxlength="40" autocomplete="given-name" enterkeyhint="done">
     <p class="hint">Guest bedroom has a California King + a couch, and the living room has a couch that can be rearranged to a Queen. I also have a twin-sized air mattress and sleeping bags but I think we can fit everyone on an elevated surface.</p>
     <p class="hint">I live in Golden! Will send out address and food information when it gets closer! Start thinking of a short craft to lead or just come for the vibes :)</p>
+    <h2>Please enter your name</h2>
+    <input type="text" id="name" placeholder="Your name" maxlength="40" autocomplete="given-name" enterkeyhint="done">
   </section>
 
   <section>
@@ -413,7 +413,7 @@ function buildOptions() {
   WEEKENDS.forEach(w => {
     const d = document.createElement("details");
     d.className = "weekend";
-    d.open = true; // set to false if you want them collapsed by default
+    d.open = false; // set to false if you want them collapsed by default
     let h = '<summary><span>' + esc(w.title) + '</span><span><span class="badge"></span><span class="chev">▸</span></span></summary>';
     h += '<label class="option all"><input type="checkbox" class="all-box"><span class="box">' + CHECK + '</span><span class="label">Any time this weekend works</span></label>';
     OPTIONS.filter(o => o.group === w.title).forEach(o => {
